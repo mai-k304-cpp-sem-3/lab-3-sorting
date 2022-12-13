@@ -5,6 +5,7 @@
 #include <string>
 
 #include "functions.h"
+
 using namespace std;
 
 const int FUNCTION_GENERATION_COUNT = 3; // Количество генераторов последовательностей
@@ -28,10 +29,6 @@ const char Space = (char)32;
 
 const int space = 12;
 
-
-
-
-
 const char* GENERATORS[] = {             
     {"allRandom"},
     {"upRegularize"},
@@ -42,7 +39,6 @@ const char* SORT_FUNCTIONS[] = {
     {"insertSort"},
     {"shellSort"}
 };
-
 
 int main()
 {
@@ -64,7 +60,6 @@ int main()
     int* array;     // Массив с исходными данными
     int* arr;       // Сортируемый массив в который мы переносим данные из исходного массива
     char* out;
-
 
     void* (*menuFunctionGeneration[FUNCTION_GENERATION_COUNT])
         (int* arr,              // Указатель на наш массив
@@ -98,11 +93,8 @@ int main()
         ifs >> minValue;
         ifs >> maxValue;
 
-
         array = new int[size]; 
         arr = new int[size];
-
-       
 
         for (int i = 0; i < FUNCTION_GENERATION_COUNT; i++) { // Проходим по всем вариантам набора данных всеми алгоритмами сортировки 
             cout << "   -------------------------------------------" << endl;
@@ -144,10 +136,6 @@ int main()
                     arr[i] = array[i];
                 }
 
-
-
-
-
                 auto begin = chrono::steady_clock::now();	// Запуск отсчёта
 
                 menuFunctionSort[j](arr, size, devKey,transfers,comparisons); //Сам вызов функции
@@ -184,7 +172,6 @@ int main()
                         << setw(space-1) << right << transfers << VerticalLine << endl;
                 }
 
-
                 ofs << "Время выполнения сортировки: " << timeOfWork.count() << endl
                     << "Сравнений:   " << setw(8) << right<< comparisons << endl
                     << "Перемещений: " << setw(8) << right<< transfers << endl;
@@ -194,7 +181,6 @@ int main()
                     printArray(arr, size);
                 }
              
-
                 ofs.close();
             }
             if (!devKey) {
