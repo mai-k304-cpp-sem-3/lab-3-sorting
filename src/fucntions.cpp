@@ -1,3 +1,16 @@
+/**********************************************************************************************
+*                                       Курс ПРОГРАММИРОВАНИЕ                                 *
+***********************************************************************************************
+*Project type : CMAKE_CXX_STANDARD 11                                                         *
+*Project name : lab-3-sorting		        			                                      *
+*File name    : function.cpp	         	                                                  *
+*Language     : CPP, GCC 11.3.0                                                               *
+*Programmers  : Пысларь Александр Игоревич, Осминнов Никита Михайлович М3О-210Б-21            *
+*Modified By  :                                                                               *
+*Created      : 03.12.2022                                                                    *
+*Last revision: 13.12.2022                                                                    *
+*Comment      : Алгоритмы сортировки					                       			      *
+**********************************************************************************************/
 #include <iostream>
 #include "functions.h"
 #include <iomanip>
@@ -70,9 +83,8 @@ void* downRegularize( //функция формирующая упорядоче
     int maxValue //ограничение на максимальное рандомное число
 )
 {
-    arr[0] = minValue;
-    for (int i = 1; i < size; i++) {
-        arr[i] = (i * -round((maxValue - minValue) / (size - 1)) + maxValue);
+    for (int i = 0; i < size; i++) {
+        arr[i] = i * (minValue - maxValue) / (size - 1) + maxValue;
     }
     return 0;
 }
@@ -85,8 +97,8 @@ void* insertSort(   // Сортировка вставками
 	int* arr,       // Массив элементов
 	int size,       // Размер массива
     bool devKey,    // Выводить ли промежуточный результат
-    int &transfers,  // Число перемещений 
-    int &comparisons // Число сравнений
+    long long& transfers,  // Число перемещений 
+    long long& comparisons // Число сравнений
 ) {
     transfers = 0;
     comparisons = 0;
@@ -119,8 +131,8 @@ void* shellSort(    // Сортировка Шелла
     int* arr,       // Массив элементов
     int size,       // Размер массива
     bool devKey,    // Выводить ли промежуточный результат
-    int &transfers,  // Число перемещений 
-    int &comparisons // Число сравнений
+    long long& transfers,  // Число перемещений 
+    long long& comparisons // Число сравнений
 ) 
 {
     transfers = 0;
