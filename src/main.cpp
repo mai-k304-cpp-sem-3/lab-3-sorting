@@ -1,18 +1,4 @@
-﻿/**********************************************************************************************
-*                                       Курс ПРОГРАММИРОВАНИЕ                                 *
-***********************************************************************************************
-*Project type : CMAKE_CXX_STANDARD 11                                                         *
-*Project name : lab-3-sorting		        			                                      *
-*File name    : main.cpp	         	                                                      *
-*Language     : CPP, GCC 11.3.0                                                               *
-*Programmers  : Пысларь Александр Игоревич, Осминнов Никита Михайлович М3О-210Б-21            *
-*Modified By  :                                                                               *
-*Created      : 03.12.2022                                                                    *
-*Last revision: 13.12.2022                                                                    *
-*Comment      : Алгоритмы сортировки					                       			      *
-**********************************************************************************************/
-
-#include <iostream>
+﻿#include <iostream>
 #include <chrono>
 #include <fstream>
 #include <iomanip>
@@ -39,11 +25,11 @@ const char RightJunction = (char)204; //"╠" - вертикальная "тру
 const char BottomJunction = (char)203; //"╦" - Горизонтальная вниз "труба"
 const char TopJunction = (char)202; //"╩" - Горизонтальная вниз "труба"
 const char CrossJunction = (char)206; //"╬" - пересечение линий
-const char Space = (char)32; 
+const char Space = (char)32;
 
 const int space = 20;
 
-const char* GENERATORS[] = {             
+const char* GENERATORS[] = {
     {"allRandom"},
     {"upRegularize"},
     {"downRegularize"}
@@ -59,12 +45,12 @@ int main()
 
     setlocale(LC_ALL, "ru");
 
-          /*****************
-          *   ПЕРЕМЕННЫЕ   *
-          *****************/
+    /*****************
+    *   ПЕРЕМЕННЫЕ   *
+    *****************/
 
     bool devKey;    // Отладочная печать
-    
+
     int size;       // Размер массива
     int minValue;   // Нижняя граница генерации
     int maxValue;   // Верхняя граница генерации
@@ -74,7 +60,7 @@ int main()
 
     int* array;     // Массив с исходными данными
     int* arr;       // Сортируемый массив в который мы переносим данные из исходного массива
-    char* out;
+
 
     void* (*menuFunctionGeneration[FUNCTION_GENERATION_COUNT]) (
         int* arr,              // Указатель на наш массив
@@ -91,8 +77,8 @@ int main()
         int* arr,           // Указатель на сортируемый массив
         int size,            // Размер массива
         bool devKey,
-        long long& transfers,
-        long long& comparisons
+        long long & transfers,
+        long long & comparisons
         ) = {
         &insertSort,        // Сортировка вставками
         &shellSort          // Сортировка Шелла
@@ -106,7 +92,7 @@ int main()
         ifs >> minValue;
         ifs >> maxValue;
 
-        array = new int[size]; 
+        array = new int[size];
         arr = new int[size];
 
         for (int i = 0; i < FUNCTION_GENERATION_COUNT; i++) { // Проходим по всем вариантам набора данных всеми алгоритмами сортировки 
@@ -121,13 +107,13 @@ int main()
             else {
                 setlocale(LC_ALL, "C");
 
-                cout << TopLeftCorner << setfill(HorizontalLine) << setw(space*4)
-                     << TopRightCorner << endl;
+                cout << TopLeftCorner << setfill(HorizontalLine) << setw(space * 4)
+                    << TopRightCorner << endl;
 
                 cout << VerticalLine << setfill(Space)
-                    << setw(space*4-1) << right << GENERATORS[i] << VerticalLine << endl;
+                    << setw(space * 4 - 1) << right << GENERATORS[i] << VerticalLine << endl;
 
-  
+
                 cout << RightJunction << setfill(HorizontalLine)
                     << setw(space) << BottomJunction << setw(space)
                     << BottomJunction << setw(space)
@@ -136,10 +122,10 @@ int main()
 
 
                 cout << VerticalLine << setfill(Space)
-                    << setw(space-1) << right << "Function" << VerticalLine
-                    << setw(space-1) << right << "time" << VerticalLine
-                    << setw(space-1) << right << "counts" << VerticalLine
-                    << setw(space-1) << right << "transfers" << VerticalLine << endl;
+                    << setw(space - 1) << right << "Function" << VerticalLine
+                    << setw(space - 1) << right << "time" << VerticalLine
+                    << setw(space - 1) << right << "counts" << VerticalLine
+                    << setw(space - 1) << right << "transfers" << VerticalLine << endl;
             }
 
             for (int j = 0; j < FUNCTION_SORT_COUNT; j++) {
@@ -151,18 +137,18 @@ int main()
 
                 auto begin = chrono::steady_clock::now();	// Запуск отсчёта
 
-                menuFunctionSort[j](arr, size, devKey,transfers,comparisons); //Сам вызов функции
+                menuFunctionSort[j](arr, size, devKey, transfers, comparisons); //Сам вызов функции
 
                 auto end = std::chrono::steady_clock::now();	// получаем время по окончанию 
                 auto timeOfWork = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
-               
+
                 ofstream ofs(string(GENERATORS[i]) + '_' + string(SORT_FUNCTIONS[j]) + string(".txt"));
 
-                ofs << "Исходный массив:" << endl;
+                ofs << "Исходный массив:" << endl;          // Печать в файл
                 for (int i = 0; i < size; i++) {
                     ofs << setw(5) << right << array[i];
                 }
-                ofs << endl<<endl;
+                ofs << endl << endl;
 
                 ofs << "Отсортированный массив:" << endl;
                 for (int i = 0; i < size; i++) {
@@ -172,28 +158,28 @@ int main()
                 if (!devKey) {
                     // ╠══╬══╬══╬══╣
                     cout << RightJunction << setfill(HorizontalLine)
-                        << setw(space) << CrossJunction 
+                        << setw(space) << CrossJunction
                         << setw(space)
                         << CrossJunction << setw(space)
                         << CrossJunction << setw(space)
                         << LeftJunction << endl;
 
                     cout << VerticalLine << setfill(Space)
-                        << setw(space-1) << right << SORT_FUNCTIONS[j] << VerticalLine
-                        << setw(space-1) << right << timeOfWork.count() << VerticalLine
-                        << setw(space-1) << right << comparisons << VerticalLine
-                        << setw(space-1) << right << transfers << VerticalLine << endl;
+                        << setw(space - 1) << right << SORT_FUNCTIONS[j] << VerticalLine
+                        << setw(space - 1) << right << timeOfWork.count() << VerticalLine
+                        << setw(space - 1) << right << comparisons << VerticalLine
+                        << setw(space - 1) << right << transfers << VerticalLine << endl;
                 }
 
                 ofs << "Время выполнения сортировки: " << timeOfWork.count() << endl
-                    << "Сравнений:   " << setw(8) << right<< comparisons << endl
-                    << "Перемещений: " << setw(8) << right<< transfers << endl;
-                
+                    << "Сравнений:   " << setw(8) << right << comparisons << endl
+                    << "Перемещений: " << setw(8) << right << transfers << endl;
+
                 if (devKey) {
                     cout << "   " << setw(5) << "Отсортированный массив:" << endl;
                     printArray(arr, size);
                 }
-             
+
                 ofs.close();
             }
             if (!devKey) {

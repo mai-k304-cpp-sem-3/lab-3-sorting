@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11) # Версия стандарта C++
 
 set(SOURCE_EXE src/main.cpp) # Установка переменной со списком исходников для исполняемого файла
 
-set(SOURCE_LIB src/fucntions.cpp) # Установка переменной со списком исходников для библиотеки
+set(SOURCE_LIB src/functions.cpp) # Установка переменной со списком исходников для библиотеки
 
 add_library(functions STATIC ${SOURCE_LIB}) # Создание статической библиотеки
 
